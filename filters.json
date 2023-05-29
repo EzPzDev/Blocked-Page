@@ -3,5 +3,6 @@
   ".*url=",
   ".*INT%26u%3D",
   ".*&u=",
-  ".*urllink="
+  ".*urllink=",
+  ".*redirect="
 ]
