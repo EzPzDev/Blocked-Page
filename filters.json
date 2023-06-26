@@ -4,5 +4,6 @@
   ".*INT%26u%3D",
   ".*&u=",
   ".*urllink=",
-  ".*redirect="
+  ".*redirect=",
+  ".*%3f"
 ]
