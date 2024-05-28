@@ -1,0 +1,83 @@
+server {                                                                                                                                                           
+   listen [::]:443 ssl ipv6only=on; # managed by Certbot                                                                                                          
+   listen 443 ssl; # managed by Certbot                                                                                                                           
+   ssl_certificate /etc/letsencrypt/live/EXAMPLE.com/fullchain.pem; # managed by Certbot                                                                        
+   ssl_certificate_key /etc/letsencrypt/live/EXAMPLE.com/privkey.pem; # managed by Certbot                                                                      
+   include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot                                                                                          
+   ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot                                                                                            
+
+      root /var/www/blockedlanding;
+      index blocked.html;                                                                                                                                       
+      error_page 404 /data//hang.jpg;
+      error_page 403 /data/hang.jpg;
+      types {
+         application/javascript js;                                                                                                                             
+         text/html html;                                                                                                                                        
+         image/gif gif;                                                                                                                                         
+         image/jpeg jpg;                                                                                                                                        
+      }                                                                                                                                                          
+
+      server_name EXAMPLE.com 10.10.10.9;                                                                                                                                 
+
+      location ~* \.(css|js|jpg|png|gif|ico|ogg|mp3|wav|swf)$ {
+         try_files /blocked.html
+         try_files /data/hang.jpg =404;
+      }
+
+      location /js/test {
+         types {
+            application/javascript js;
+            text/html html;
+         }
+         try_files /js/test.js
+         try_files /data/hang.jpg =404;
+      }
+      
+      location /js/redirectScript {
+         types {
+            application/javascript js;
+            text/html html;
+         }
+         try_files /js/redirectScript.js
+         try_files /data/hang.jpg =404;                                                                                                                      
+      }                                                                                                                                                          
+
+      location /js/tunnel {
+         types {
+            application/javascript js;
+            text/html html;
+         }
+         try_files /js/tunnel.js
+         try_files /data/hang.jpg =404;
+      }
+
+      location /js/proxypass {
+     error_log /var/log/nginx/debug.log debug;
+         types {
+            application/javascript js;
+            text/html html;
+         }
+         try_files /js/proxypass.js
+         try_files /data/hang.jpg =404;                                                                                                                      
+      }                                                                                                                                                          
+
+      location /data/filters.json {
+         types {
+            application/json json;
+            text/plain;
+            text/json;
+         }
+         try_files /data/filters.json                                                                                                                     
+         try_files /data/hang.jpg =404;                                                                                                                      
+      }                                                                                                                                                          
+
+      location /js/clean.js {
+         types {
+            application/javascript js;
+            text/html html;
+         }
+         try_files /js/clean.js
+         try_files /data/hang.jpg =404;                                                                                                                      
+      }                                                                                                                                                          
+}                                                                                                                                                                  
+     
