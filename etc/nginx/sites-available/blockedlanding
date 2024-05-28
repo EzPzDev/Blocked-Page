@@ -17,22 +17,13 @@ server {
          image/jpeg jpg;                                                                                                                                        
       }                                                                                                                                                          
 
-      server_name EXAMPLE.com 10.10.10.9;                                                                                                                                 
+      server_name blockedlanding.com 10.10.10.9;                                                                                                                                 
 
       location ~* \.(css|js|jpg|png|gif|ico|ogg|mp3|wav|swf)$ {
          try_files /blocked.html
          try_files /data/hang.jpg =404;
       }
 
-      location /js/test {
-         types {
-            application/javascript js;
-            text/html html;
-         }
-         try_files /js/test.js
-         try_files /data/hang.jpg =404;
-      }
-      
       location /js/redirectScript {
          types {
             application/javascript js;
@@ -50,26 +41,6 @@ server {
          try_files /js/tunnel.js
          try_files /data/hang.jpg =404;
       }
-
-      location /js/proxypass {
-     error_log /var/log/nginx/debug.log debug;
-         types {
-            application/javascript js;
-            text/html html;
-         }
-         try_files /js/proxypass.js
-         try_files /data/hang.jpg =404;                                                                                                                      
-      }                                                                                                                                                          
-
-      location /data/filters.json {
-         types {
-            application/json json;
-            text/plain;
-            text/json;
-         }
-         try_files /data/filters.json                                                                                                                     
-         try_files /data/hang.jpg =404;                                                                                                                      
-      }                                                                                                                                                          
 
       location /js/clean.js {
          types {
